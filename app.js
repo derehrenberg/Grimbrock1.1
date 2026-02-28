@@ -1,54 +1,51 @@
 const STORE = "grimbrock_data";
 
-let data = JSON.parse(localStorage.getItem(STORE)) || {
-  macros:{},
-  weight:[],
-  training:[]
-};
+let data = JSON.parse(localStorage.getItem(STORE));
 
-function save(){
- localStorage.setItem(STORE, JSON.stringify(data));
+if (!data) {
+  data = {
+    macros: { p: 0, c: 0, f: 0, kcal: 0 },
+    weight: [],
+    training: []
+  };
 }
 
-function saveMacros(){
- let p = Number(document.getElementById("p").value);
- let c = Number(document.getElementById("c").value);
- let f = Number(document.getElementById("f").value);
-
- let kcal = p*4 + c*4 + f*9;
-
- data.macros = {p,c,f,kcal};
- save();
-
- document.getElementById("kcal").innerText = "Kalorien: " + kcal;
+function save() {
+  localStorage.setItem(STORE, JSON.stringify(data));
 }
 
-function saveWeight(){
- let w = Number(document.getElementById("weight").value);
- data.weight.push({date:new Date(), value:w});
- save();
+function saveMacros() {
+  const p = Number(document.getElementById("p").value) || 0;
+  const c = Number(document.getElementById("c").value) || 0;
+  const f = Number(document.getElementById("f").value) || 0;
+
+  const kcal = p * 4 + c * 4 + f * 9;
+
+  data.macros = { p, c, f, kcal };
+  save();
+
+  document.getElementById("kcal").innerText = "Kalorien: " + kcal;
 }
 
-function calc1RM(){
- let w = Number(document.getElementById("tweight").value);
- let r = Number(document.getElementById("reps").value);
+function saveWeight() {
+  const w = Number(document.getElementById("weight").value);
+  if (!w) return;
 
- let e1rm = w * (1 + r/30);
- data.training.push({date:new Date(), e1rm});
- save();
+  data.weight.push({ date: new Date().toISOString(), value: w });
+  save();
+}
 
- document.getElementById("result").innerText = 
- "Geschätztes 1RM: " + e1rm.toFixed(1) + " kg";
-}function calc1RM() {
-  const weight = parseFloat(document.getElementById("weight").value);
-  const reps = parseFloat(document.getElementById("reps").value);
+function calc1RM() {
+  const w = Number(document.getElementById("tweight").value);
+  const r = Number(document.getElementById("reps").value);
 
-  if (!weight || !reps) {
-    document.getElementById("result").innerText = "Bitte Werte eingeben.";
-    return;
-  }
+  if (!w || !r) return;
 
-  const e1RM = weight * (1 + reps / 30);
+  const e1rm = w * (1 + r / 30);
+
+  data.training.push({ date: new Date().toISOString(), e1rm });
+  save();
+
   document.getElementById("result").innerText =
-    "Geschätztes 1RM: " + e1RM.toFixed(1) + " kg";
+    "Geschätztes 1RM: " + e1rm.toFixed(1) + " kg";
 }
