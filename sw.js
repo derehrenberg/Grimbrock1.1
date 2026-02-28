@@ -1,4 +1,4 @@
-const CACHE="grimbrock-v4";
+const CACHE="grimbrock-v99";
 
 const ASSETS=[
  "./",
