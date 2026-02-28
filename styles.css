@@ -1,4 +1,252 @@
+:root{
+  --bg:#0b0b0b;
+  --panel:#0f1114;
+  --text:#f4f4f5;
+  --muted:#9aa0a6;
+  --line:rgba(255,255,255,.08);
+  --red:#ff1a1a;
+  --red2:#8b0000;
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --r:18px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
 body{
+  margin:0;
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: var(--bg);
+  overflow-x:hidden;
+}
+
+/* =========================
+   DOMINANT WATERMARK
+========================= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+    radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.85) 75%),
+    url("logo-watermark.png") center center no-repeat;
+
+  background-size: 90%;
+  opacity: 0.16;
+
+  filter:
+    grayscale(100%)
+    contrast(170%)
+    brightness(65%)
+    drop-shadow(0 0 60px rgba(255,0,0,0.18));
+
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Layer fix */
+body > *{
+  position:relative;
+  z-index:1;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.top{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background: rgba(11,11,11,.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topInner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+}
+
+.title{
+  font-weight:900;
+  letter-spacing:3px;
+  color:var(--red);
+  font-size:22px;
+}
+
+.subtitle{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.wrap{
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+@media (min-width:980px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .wide{
+    grid-column:1 / -1;
+  }
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+
+.cardHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.cardHead h2{
+  margin:0;
+  font-size:16px;
+}
+
+.hint{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.fields{
+  display:grid;
+  gap:12px;
+}
+
+.fields.two{
+  grid-template-columns:1fr;
+}
+
+@media (min-width:720px){
+  .fields.two{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(12,14,17,.7);
+  color:var(--text);
+  outline:none;
+  transition:.2s ease;
+}
+
+input:focus{
+  border-color:rgba(255,26,26,.6);
+  box-shadow:0 0 0 3px rgba(255,26,26,.15);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:900;
+  letter-spacing:.6px;
+  color:white;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  box-shadow:0 15px 35px rgba(255,0,0,.25);
+  transition:.15s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+.btn:active{
+  transform:translateY(1px);
+}
+
+/* =========================
+   RESULT PILL
+========================= */
+
+.pillRow{
+  margin-top:14px;
+}
+
+.pill{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  border-radius:16px;
+  padding:12px;
+}
+
+.pillK{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.pillV{
+  margin-top:4px;
+  font-weight:900;
+  font-size:18px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.foot{
+  margin-top:20px;
+  text-align:center;
+  color:rgba(255,255,255,.4);
+  font-size:12px;
+}body{
  margin:0;
  font-family:Arial, sans-serif;
  background:#0b0b0b;
