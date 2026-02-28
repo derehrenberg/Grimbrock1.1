@@ -116,3 +116,20 @@ button {
 button:hover {
   background: #ff6600;
 }
+/* === GRIMBROCK WATERMARK === */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: url("logo-watermark.png") center center no-repeat;
+  background-size: 60%;
+  opacity: 0.035; /* hier kannst du Intensität anpassen */
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Inhalt darüber legen */
+body > *{
+  position:relative;
+  z-index:1;
+}
